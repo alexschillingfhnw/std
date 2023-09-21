@@ -217,7 +217,8 @@ st.markdown("##### Liverpool vs. Biggest Rivals")
 
 st.markdown("Liverpool FC has a long history of rivalries with other clubs, including Manchester United and Everton. \
             The Reds have also developed a rivalry with Manchester City in recent years, as both teams have been competing for the Premier League title. \
-            Arsenal, Tottenham and Chelsea have also been added to the list of Liverpool's rivals in recent years, as they have all in the so-called 'Big Six' of the Premier League. \
+            Arsenal, Tottenham and Chelsea have also been added to the list of Liverpool's rivals, as they are all in the so-called 'Big Six' of the Premier League. \
+            \n \
             In this section, we will look at Liverpool's results against these rivals since 2009. \
 ")
 
@@ -251,7 +252,7 @@ fig_liv_rivals_results.update_layout(
 
 st.plotly_chart(fig_liv_rivals_results, theme="streamlit", use_container_width=True)
 
-st.markdown("As we can see, Jürgen Klopp has had a lot of success in the big games, drastically reducing their defeats. \
+st.markdown("As we can see, Jürgen Klopp and his squad have had a lot of success in the big games, drastically reducing their defeats. \
             In seasons 2017 and 2022, Liverpool did not lose a single match against their rivals. \
 ")
 
@@ -276,7 +277,9 @@ st.markdown("In 2017, Mohamed Salah signed with Liverpool for a then-club record
             Salah's consistency and remarkable performances have earned him many individual awards, including the PFA Players' Player of the Year and Football Writers' Association Footballer of the Year awards. \
             He has recently signed a new long-term contract with Liverpool and is eager to win more trophies with the club.")
 
-st.write('"I feel great and [I am] excited to win trophies with the club… I have enjoyed my football here at the club and hopefully I will continue to enjoy it and win many trophies," he said.')
+st.markdown('"I feel great and [I am] excited to win trophies with the club… I have enjoyed my football here at the club and hopefully I will continue to enjoy it and win many trophies," he said.')
+
+st.markdown("Let's take a look at some of his statistics.")
 
 fig_salah = go.Figure()
 
@@ -420,7 +423,7 @@ st.markdown("These two signings are an example of the many other great players J
          The German manager has been a key factor in Liverpool's recent success, and his ability to attract top talent to the club has been a major reason for the Reds' recent dominance. \
 ")
             
-st.markdown("Klopp has also been able to develop players who were already at the club, such as Trent Alexander-Arnold and Andy Robertson, into world-class players.")
+st.markdown("Klopp has also been able to develop players who were already at the club, such as Trent Alexander-Arnold, into world-class players.")
 
 
 col5, col6 = st.columns(2)
@@ -620,16 +623,15 @@ st.markdown("### Conclusion")
 
 st.markdown("##### The Klopp Effect: Tactical Adaptability and Transformation")
 
-st.markdown("As we've journeyed through the data, one thing becomes abundantly clear: Jürgen Klopp's tactical adaptability has been the cornerstone of Liverpool FC's transformation. \
-            Whether it's the high-pressing game, the development of players, or the ability to outwit opponents in key matches, Klopp has brought a level of dynamism that was sorely missing in the pre-2015 era. \
-            His managerial acumen has not only led to a more cohesive and effective team but has also rekindled the winning spirit that is synonymous with Liverpool FC. \
+st.markdown("As we have looked at the data, one thing becomes very clear: Jürgen Klopp has been the key to Liverpool FC's transformation. \
+            Whether it's the aggressive style of play, improving players, or outsmarting opponents in important matches, Klopp has brought a level of energy that was greatly needed before 2015. \
+            His skill as a manager has not only made the team work better together but has also brought back the winning mentality that Liverpool FC is known for. \
 ")
 
 st.markdown("##### A Tale of Triumph")
 
-# visualization??
-
-st.markdown("In closing, the story of Liverpool FC under Jürgen Klopp is one of transformation, achieved through tactical brilliance, player development, financial prudence, and an unparalleled connection with the fans. \
-            As the data vividly illustrates, Klopp has not just improved Liverpool—he has redefined what the club can achieve. \
-            And if the numbers are anything to go by, this is only the beginning of a new, glorious chapter in the club's illustrious history. \
+st.markdown("In conclusion, the story of Liverpool FC under Jürgen Klopp is a tale of change. \
+            This change was brought about through clever strategies, developing players and managing finances wisely.\
+            The numbers clearly show that Klopp has not only made Liverpool better, but he has also set new standards for the club. \
+            Based on these statistics, it is evident that this is just the start of an exciting and successful era in the club's impressive history.\
 ")
