@@ -67,6 +67,9 @@ fig_bar_liv_results.update_layout(
     xaxis_title = 'Season End Year',
     yaxis_title = 'Percentage of Matches',
 
+    # stacked bar chart
+    barmode = 'stack',
+
     annotations=[
         dict(
             x=0.5,
@@ -163,18 +166,40 @@ st.markdown("Before joining Liverpool, Klopp had a successful managerial stint a
 st.markdown("### The Transformation")
 st.markdown("##### Formations")
 
-st.markdown("Under Jürgen Klopp, Liverpool FC has primarily employed a high-pressing 4-3-3 formation. \
+st.markdown("We can see that before Jürgen Klopp was appointed, that Liverpool FC used so many different formations. \
+            This is a sign of a team that is struggling to find it's identity. \
+            Under Jürgen Klopp, Liverpool FC has primarily employed a high-pressing 4-3-3 formation. \
             However, we can see that in the beginning that Klopp experimented with many different formations, \
-            trying to find the right fit for his squad.")
+            trying to find the right fit for his squad. \
+            The increase in games under Jürgen Klopp is due to the fact that they were a lot more successful, resulting in playing in more torunaments. \
+")
 
 df_liv_formations = pd.read_csv('liverpool_formations.csv')
 
 fig_liv_formations = px.line(df_liv_formations, x='Season_End_Year', y='Count', color='Formation')
 fig_liv_formations.update_layout(
-    title='Liverpool FC Formations Under Jürgen Klopp',
+    title='Liverpool FC Formations',
     xaxis_title='Season End Year',
-    yaxis_title='Count of Formations',
+    yaxis_title='Games Played',
 
+    # add line at x = 2015 -> Klopp's first season
+    shapes=[
+        dict(
+            type= 'line',
+            xref= 'x',
+            yref= 'y',
+            x0= 2016,
+            y0= 0,
+            x1= 2016,
+            y1= 60,
+            line=dict(
+                color="black",
+                width=2,
+                dash="dashdot"
+            )
+        )
+    ],
+ 
     annotations=[
         dict(
             x=0.5,
@@ -183,6 +208,15 @@ fig_liv_formations.update_layout(
             text="Source: footballcritic.com | Liverpool FC Formations",
             xref="paper",
             yref="paper"
+        ),
+
+        dict(
+            x=2016,
+            y=40,
+            showarrow=True,
+            arrowhead=7,
+            ax=-75,
+            text="Klopp's Arrival",
         ),
     ]
 )
@@ -226,10 +260,13 @@ df_rivals_results = pd.read_csv('df_liv_rivals.csv')
 
 fig_liv_rivals_results = px.bar(df_rivals_results, x='Season_End_Year', y='Count', color='Liverpool_Result', barmode='group')
 fig_liv_rivals_results.update_layout(
-    title = 'Liverpool FC Win-Loss-Draw Results against top Rivals',
+    title = 'Liverpool FC Win-Loss-Draw Results Against Rivals',
     legend_title = '',
     xaxis_title = 'Season End Year',
     yaxis_title = 'Percentage of Matches',
+
+    # stacked bar chart
+    barmode='stack',
 
     # show all ticks
     xaxis = dict(
@@ -255,6 +292,48 @@ st.plotly_chart(fig_liv_rivals_results, theme="streamlit", use_container_width=T
 st.markdown("As we can see, Jürgen Klopp and his squad have had a lot of success in the big games, drastically reducing their defeats. \
             In seasons 2017 and 2022, Liverpool did not lose a single match against their rivals. \
 ")
+            
+# League Positions
+st.markdown("##### League Positions Under Klopp")
+st.markdown("In this section, we will look at Liverpool's league positions under Jürgen Klopp. \
+            We can see that the Reds have consistently finished in the top 4 since Klopp's arrival. \
+            In the 2019-20 season, they won the Premier League title for the first time in 30 years.")
+  
+df_liv_standings_klopp = pd.read_csv('standings_with_klopp.csv')
+
+# Create subplots
+fig_df_liv_standings_klopp = go.Figure()
+
+# Add traces
+fig_df_liv_standings_klopp.add_trace(go.Scatter(x=df_liv_standings_klopp['Season_End_Year'], y=df_liv_standings_klopp['Rk'], mode='lines', hovertext=df_liv_standings_klopp['Pts']))
+
+
+#fig_line_liv_standings = px.line(df_liv_standings, x='Season_End_Year', y='Rk', hovertext='Pts')
+fig_df_liv_standings_klopp.update_layout(
+    title = 'Liverpool FC League Positions under Jürgen Klopp',
+    legend_title = '',
+    xaxis_title = 'Season End Year',
+    yaxis_title = 'League Position',
+
+    yaxis = dict(
+        autorange = False,
+        range = [20,1],
+        dtick = 1
+    ),
+
+    annotations=[
+        dict(
+            x=0.5,
+            y=-0.25,
+            showarrow=False,
+            text="Source: kaggle.com | Premier League Standings 1993-2023",
+            xref="paper",
+            yref="paper"
+        ),
+    ]
+)
+
+st.plotly_chart(fig_df_liv_standings_klopp, theme="streamlit", use_container_width=True)
 
 st.markdown("#### Most Influential Players Under Klopp")
 
