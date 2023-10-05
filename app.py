@@ -166,10 +166,10 @@ st.markdown("Before joining Liverpool, Klopp had a successful managerial stint a
 st.markdown("### The Transformation")
 st.markdown("##### Formations")
 
-st.markdown("We can see that before Jürgen Klopp was appointed, that Liverpool FC used so many different formations. \
+st.markdown("We can see that before Jürgen Klopp was appointed, Liverpool FC used so many different formations. \
             This is a sign of a team that is struggling to find it's identity. \
             Under Jürgen Klopp, Liverpool FC has primarily employed a high-pressing 4-3-3 formation. \
-            However, we can see that in the beginning that Klopp experimented with many different formations, \
+            However, we can see in the beginning that Klopp experimented with many different formations, \
             trying to find the right fit for his squad. \
             The increase in games under Jürgen Klopp is due to the fact that they were a lot more successful, resulting in playing in more torunaments. \
 ")
