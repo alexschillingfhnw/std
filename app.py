@@ -4,7 +4,6 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from streamlit.components.v1 import html
-from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 st.title("From Doubters to Believers:")
 st.header("The Evolution of Liverpool FC Under Jürgen Klopp")
@@ -41,8 +40,23 @@ df_liv_standings = pd.read_csv('standings_without_klopp.csv')
 # remoeve last column
 df_liv_results = df_liv_results.iloc[:, :-1]
 
+color_map = {
+    "Win": "#0068c9",
+    "Loss": "#ff2b2b",
+    "Draw": "#969696"
+}
+
 # pie chart
-fig_pie_liv_results = px.pie(df_liv_results, values='Without Klopp', names='Result')
+fig_pie_liv_results = px.pie(
+    df_liv_results,
+    values='Without Klopp',
+    names='Result',
+    color='Result',
+    color_discrete_map=color_map
+)
+
+fig_pie_liv_results.update_traces(textfont=dict(color="white"))
+
 fig_pie_liv_results.update_layout(
     title = 'Liverpool FC Results before Jürgen Klopp',
     legend_title = '',
@@ -59,17 +73,24 @@ fig_pie_liv_results.update_layout(
     ]
 )
 
-# create a diagram to show the win-loss-draw results grouped by season
-fig_bar_liv_results = px.bar(df_liv_seasons, x='Season_End_Year', y='Count', color='Liverpool_Result', barmode='group')
+# Create the updated plot
+fig_bar_liv_results = px.bar(
+    df_liv_seasons, 
+    x='Season_End_Year', 
+    y='Count', 
+    color='Liverpool_Result',
+    color_discrete_map=color_map,
+    category_orders={"Liverpool_Result": ["Win", "Draw", "Loss"]},
+    barmode='group'
+)
+
+# Update layout based on feedback
 fig_bar_liv_results.update_layout(
-    title = 'Liverpool FC Results before Jürgen Klopp',
-    legend_title = '',
-    xaxis_title = 'Season End Year',
-    yaxis_title = 'Percentage of Matches',
-
-    # stacked bar chart
-    barmode = 'stack',
-
+    title='Liverpool FC Results before Jürgen Klopp',
+    legend_title='',
+    xaxis_title='Season End Year',
+    yaxis_title='Percentage of Matches',
+    barmode='stack',
     annotations=[
         dict(
             x=0.5,
@@ -258,7 +279,17 @@ st.markdown("Liverpool FC has a long history of rivalries with other clubs, incl
 
 df_rivals_results = pd.read_csv('df_liv_rivals.csv')
 
-fig_liv_rivals_results = px.bar(df_rivals_results, x='Season_End_Year', y='Count', color='Liverpool_Result', barmode='group')
+# Create the updated plot
+fig_liv_rivals_results = px.bar(
+    df_rivals_results, 
+    x='Season_End_Year', 
+    y='Count', 
+    color='Liverpool_Result',
+    color_discrete_map=color_map,
+    category_orders={"Liverpool_Result": ["Win", "Draw", "Loss"]},
+    barmode='group'
+)
+
 fig_liv_rivals_results.update_layout(
     title = 'Liverpool FC Win-Loss-Draw Results Against Rivals',
     legend_title = '',
@@ -611,11 +642,11 @@ fig_defenders = go.Figure()
 for i in range(len(df_defenders["Name"])):
     if df_defenders["Name"][i] == "Trent Alexander-Arnold":
         fig_defenders.add_trace(go.Scatter(x=[df_defenders["Assists"][i]], y=[df_defenders["Goals"][i]], mode='markers', name=df_defenders["Name"][i], 
-                                 marker=dict(size=[df_defenders["Games"][i]/10], color='red', sizemode='diameter', opacity=0.6, line=dict(color='Black', width=1)),
+                                 marker=dict(size=[df_defenders["Games"][i]/10], color='#ff2b2b', sizemode='diameter', opacity=0.6, line=dict(color='Black', width=1)),
                                  text=df_defenders["Name"][i]))
     else:
         fig_defenders.add_trace(go.Scatter(x=[df_defenders["Assists"][i]], y=[df_defenders["Goals"][i]], mode='markers', name=df_defenders["Name"][i],
-                                 marker=dict(size=[df_defenders["Games"][i]/10], color='#1f77b4', sizemode='diameter', opacity=0.6, line=dict(color='Black', width=1)),
+                                 marker=dict(size=[df_defenders["Games"][i]/10], color='#0068c9', sizemode='diameter', opacity=0.6, line=dict(color='Black', width=1)),
                                  text=df_defenders["Name"][i]))
 
 # Update layout for better visualization
@@ -665,13 +696,13 @@ df_net_spend = pd.read_excel("net_spend.xlsx")
 fig_spend = go.Figure()
 
 # Add bar chart for net spend
-fig_spend.add_trace(go.Bar(x=df_net_spend["Club"], y=df_net_spend["Net spend (mil. eur)"], name='Net Spend (mil. eur)', marker_color='#1f77b4'))
+fig_spend.add_trace(go.Bar(x=df_net_spend["Club"], y=df_net_spend["Net spend (mil. eur)"], name='Net Spend (mil. eur)', marker_color='#0068c9'))
 
 # Add line chart for trophies
-fig_spend.add_trace(go.Scatter(x=df_net_spend["Club"], y=df_net_spend["Trophies"], mode='lines+markers', name='Trophies', yaxis='y2', line=dict(color='red', width=2)))
+fig_spend.add_trace(go.Scatter(x=df_net_spend["Club"], y=df_net_spend["Trophies"], mode='lines+markers', name='Trophies', yaxis='y2', line=dict(color='black', width=2)))
 
 # Add bar chart for net spend per trophy
-fig_spend.add_trace(go.Bar(x=df_net_spend["Club"], y=df_net_spend["Net spend per trophy (mil. eur)"], name='Net Spend per Trophy (mil. eur)', marker_color='#17becf'))
+fig_spend.add_trace(go.Bar(x=df_net_spend["Club"], y=df_net_spend["Net spend per trophy (mil. eur)"], name='Net Spend per Trophy (mil. eur)', marker_color='#ff2b2b'))
 
 # Update layout for dual axis
 fig_spend.update_layout(
